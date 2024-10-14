@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Form</title>
+    
+    <style>
+        /* Styling for the Form */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        
+        .form-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+        
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        label {
+            margin: 10px 0 5px 0;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        input[type="text"], input[type="email"], input[type="file"], textarea {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+        
+        textarea {
+            resize: vertical;
+        }
+        
+        button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>Edit Details</h2>
+        <form action="{% url 'updata' pk=key2.id %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <!-- Name Field -->
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="uname" value="{{key2.name}}" required>
+
+            <!-- Title Field -->
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="utitle" value="{{key2.title}}" required>
+            
+            <!-- Description Field -->
+            <label for="description">Description:</label>
+            <textarea id="description" name="udescription" rows="4" required>{{ key2.description }}</textarea>
+
+            <!-- <label for="description">Description:</label>
+            <textarea id="description" name="udescription" rows="4" required>{{ key2.description }}</textarea> ## Using ChatGPT -->
+
+
+            <!-- Submit Button -->
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+</body>
+</html>

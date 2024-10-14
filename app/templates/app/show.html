@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    
+    <style>
+        /* Styling for the Profile Page */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            padding: 20px;
+        }
+        
+        .profile-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .profile-card {
+            background-color: #fff;
+            padding: 20px;
+            margin: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .profile-card img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 5px solid #d3d3d3;
+        }
+        
+        .profile-card h2 {
+            color: #333;
+            font-size: 24px;
+            margin: 10px 0;
+        }
+        
+        .profile-card h4 {
+            color: #666;
+            font-weight: 400;
+            margin-bottom: 15px;
+        }
+        
+        .profile-card p {
+            color: #777;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        /* Action Buttons */
+        .profile-card .actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .profile-card button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            color: white;
+        }
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            color: white;
+            background-color: #4CAF50;
+        }
+
+        .edit-btn {
+            background-color: #4CAF50;
+        }
+
+        .edit-btn:hover {
+            background-color: #45a049;
+        }
+
+        .delete-btn {
+            background-color: #f44336;
+        }
+
+        .delete-btn:hover {
+            background-color: #e60000;
+        }
+    </style>
+</head>
+<body>
+
+    <center><h2>User Profiles</h2>
+        
+        <form action="{% url 'uploadpage' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="edit-btn">Add Data</button>
+        </form>
+
+        <hr></center>
+    <div class="profile-container">
+        {% if key1 %}
+        {% for i in key1 %}
+        <div class="profile-card">
+            <img src="{{MEDIA_URL}}{{i.profile.url}}" alt="{{i.name}}">
+            <h2>{{i.name}}</h2>
+            <h4>{{i.title}}</h4>
+            <p>{{i.description}}</p>
+            <p><strong>Email:</strong> {{i.email}}</p>
+
+            <!-- Action Buttons for Edit and Delete -->
+            <div class="actions">
+                <!-- Edit Button -->
+                <form action="{% url 'editpage' pk=i.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="edit-btn">Edit</button>
+                </form>
+                
+                <!-- Delete Button -->
+                <form action="{% url 'delete' pk=i.id %}" method="post">
+                    {% csrf_token %}
+                    <button onclick="ShowPopUp()" type="submit" class="delete-btn">Delete</button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+
+        {% endif %}
+    </div>
+
+    <script>
+        function ShowPopUp(){
+            alert("Are you want to delete the profile?")
+        }
+    </script>
+
+</body>
+</html>
